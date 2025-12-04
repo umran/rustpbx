@@ -1,0 +1,72 @@
+http_addr = "0.0.0.0:8080"
+log_level = "debug"
+#log_file = "/tmp/rustpbx.log"
+media_cache_path = "/tmp/mediacache"
+database_url = "sqlite://rustpbx.sqlite3"
+
+# external IP address for SIP signaling and media
+# if server is behind NAT, set your public IP here (without port)
+# external_ip = "1.2.3.4"
+
+[console]
+#session_secret = "please_change_me_to_a_random_secret"
+base_path = "/console"
+# allow self-service administrator signup after the first account
+allow_registration = false
+
+[proxy]
+modules = ["acl", "auth", "registrar", "call"]
+addr = "0.0.0.0"
+udp_port = 15060
+registrar_expires = 60
+ws_handler= "/ws"
+media_proxy = "auto"
+# Base directory for generated routing/trunk/ACL files
+generated_dir = "./config"
+routes_files = ["config/routes/*.toml"]
+trunks_files = ["config/trunks/*.toml"]
+
+[proxy.transcript]
+command = "sensevoice-cli"
+
+# ACL rules
+acl_rules = [
+  "allow all",
+  "deny all"
+]
+acl_files = ["config/acl/*.toml"]
+
+[[proxy.user_backends]]
+type = "memory"
+users = [
+  { username = "bob", password = "123456" },
+  { username = "alice", password = "123456" },
+]
+
+[[proxy.user_backends]]
+type = "extension"
+database_url = "sqlite://rustpbx.sqlite3"
+
+[callrecord]
+type = "local"
+root = "/tmp/recorders"
+
+[recording]
+enabled = true
+auto_start = true
+path = "/tmp/recorders"
+# format can be "wav" (default) or "ogg" (requires enabling the 'opus' feature)
+format = "ogg"
+
+
+[ua]
+addr = "0.0.0.0"
+udp_port = 13050
+
+[[ice_servers]]
+urls = ["stun:stun.l.google.com:19302"]
+
+[[ice_servers]]
+urls = ["turn:openrelay.metered.ca:80"]
+username = "openrelayproject"
+credential = "openrelayproject"
