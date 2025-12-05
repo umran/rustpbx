@@ -911,11 +911,6 @@ fn convert_route(
         name: String,
     }
 
-    #[derive(Deserialize)]
-    struct RouteTrunkDocument {
-        name: String,
-    }
-
     let target_trunks: Vec<String> = model
         .target_trunks
         .clone()
