@@ -19,7 +19,7 @@ modules = ["acl", "auth", "registrar", "call"]
 addr = "0.0.0.0"
 udp_port = 15060
 registrar_expires = 60
-ws_handler= "/ws"
+ws_handler = "/ws"
 media_proxy = "auto"
 # Base directory for generated routing/trunk/ACL files
 generated_dir = "./config"
@@ -30,10 +30,7 @@ trunks_files = ["config/trunks/*.toml"]
 command = "sensevoice-cli"
 
 # ACL rules
-acl_rules = [
-  "allow all",
-  "deny all"
-]
+acl_rules = ["allow all", "deny all"]
 acl_files = ["config/acl/*.toml"]
 
 [[proxy.user_backends]]
