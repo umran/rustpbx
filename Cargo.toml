@@ -66,7 +66,7 @@ chrono = { version = "0.4.42", features = ["serde"] }
 chrono-tz = "0.10.4"
 # rsipstack = "0.2.93"
 #rsipstack = { path = "../rsipstack" }
-rsipstack = { git = "https://github.com/umran/rsipstack.git", rev = "8a1b6a4" }
+rsipstack = { git = "https://github.com/umran/rsipstack.git", rev = "07b5a3b" }
 voice-engine = { version = "0.3.18", default-features = false }
 rsip = "0.4.0"
 reqwest = { version = "0.12.24", features = [
@@ -152,4 +152,4 @@ path = "src/bin/wav2text.rs"
 required-features = ["wav2text-bin"]
 
 [patch.crates-io]
-rsipstack = { git = "https://github.com/umran/rsipstack.git", rev = "8a1b6a4" }
+rsipstack = { git = "https://github.com/umran/rsipstack.git", rev = "07b5a3b" }
