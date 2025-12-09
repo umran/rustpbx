@@ -1,12 +1,14 @@
 http_addr = "0.0.0.0:8080"
 log_level = "debug"
-#log_file = "/tmp/rustpbx.log"
 media_cache_path = "/tmp/mediacache"
-database_url = "sqlite://rustpbx.sqlite3"
+database_url = "mysql://opticonpbx:opticonpbx@localhost:3306/opticonpbx"
 
 # external IP address for SIP signaling and media
 # if server is behind NAT, set your public IP here (without port)
 external_ip = "69.94.84.199"
+ssl_certificate = "config/certs/sip.irukandjilabs.com.crt"
+ssl_private_key = "config/certs/sip.irukandjilabs.com.key"
+https_addr = "0.0.0.0:443"
 
 [console]
 #session_secret = "please_change_me_to_a_random_secret"
@@ -17,7 +19,8 @@ allow_registration = false
 [proxy]
 modules = ["acl", "auth", "registrar", "call"]
 addr = "0.0.0.0"
-udp_port = 15060
+realms = ["sip.irukandjilabs.com"]
+udp_port = 5060
 registrar_expires = 60
 ws_handler = "/ws"
 media_proxy = "auto"
@@ -25,6 +28,10 @@ media_proxy = "auto"
 generated_dir = "./config"
 routes_files = ["config/routes/*.toml"]
 trunks_files = ["config/trunks/*.toml"]
+addons = ["acme"]
+ssl_certificate = "config/certs/sip.irukandjilabs.com.crt"
+ssl_private_key = "config/certs/sip.irukandjilabs.com.key"
+tls_port = 5061
 
 [proxy.transcript]
 command = "sensevoice-cli"
@@ -42,7 +49,7 @@ users = [
 
 [[proxy.user_backends]]
 type = "extension"
-database_url = "sqlite://rustpbx.sqlite3"
+database_url = "mysql://opticonpbx:opticonpbx@localhost:3306/opticonpbx"
 
 [callrecord]
 type = "local"
@@ -54,16 +61,3 @@ auto_start = true
 path = "/tmp/recorders"
 # format can be "wav" (default) or "ogg" (requires enabling the 'opus' feature)
 format = "ogg"
-
-
-[ua]
-addr = "0.0.0.0"
-udp_port = 13050
-
-# [[ice_servers]]
-# urls = ["stun:stun.l.google.com:19302"]
-
-# [[ice_servers]]
-# urls = ["turn:openrelay.metered.ca:80"]
-# username = "openrelayproject"
-# credential = "openrelayproject"
