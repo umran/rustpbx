@@ -36,3 +36,6 @@ cdr/
 # 
 src/addons/wholesale
 miuda.docs
+
+# ignore config directory
+config/
